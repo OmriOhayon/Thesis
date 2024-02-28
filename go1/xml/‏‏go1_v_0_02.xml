@@ -1,0 +1,328 @@
+<mujoco model="go1_description">
+    <compiler angle="radian" meshdir="../meshes/" />
+    <!-- <size njmax="5000" nconmax="1000" /> -->
+    <!-- <option gravity='0 0 -9.806' iterations='150' solver='Newton' timestep='0.002' integrator='implicitfast'/> -->
+    <option gravity='0 0 -9.806' tolerance='1e-12' iterations='100' solver='Newton' timestep='0.002' integrator='implicitfast' impratio='300' cone='elliptic' noslip_iterations='50'/>
+    <!-- <option gravity='0 0 -9.806' iterations='150' solver='Newton' timestep='0.002'/> -->
+
+    <default>
+        <light castshadow="false" diffuse="1 1 1"/>
+        <camera fovy="30"/>
+
+        <joint damping="1" armature="0.005" frictionloss="0.2"/>
+    </default>
+
+    <asset>
+        <mesh name="trunk" file="trunk.stl" />
+        <mesh name="hip" file="hip.stl" />
+        <mesh name="thigh_mirror" file="thigh_mirror.stl" />
+        <mesh name="calf" file="calf.stl" />
+        <mesh name="thigh" file="thigh.stl" />
+
+        <texture type="skybox" builtin="gradient" rgb1="1.0 1.0 1.0" rgb2="1.0 1.0 1.0" width="512" height="512"/>
+        <texture name="plane" builtin="checker" type="2d" rgb1="1 1 1" rgb2="1 1 1" width="512" height="512" mark="cross" markrgb="0 0 0"/>
+        <material name="plane" reflectance="0.0" texture="plane" texrepeat="3 3" texuniform="true"/>
+        <hfield name="hf1" size="40 40 2.4 0.1" file="C:\\Users\\Omri\\Desktop\\MSc\\Thesis\\Code\\Height_Maps\\heightmap1685995019.9920268_resized.png"/>
+    </asset>
+
+    <visual>
+        <rgba com="0.502 1.0 0 0.5" contactforce="0.98 0.4 0.4 0.7" contactpoint="1.0 1.0 0.6 0.4"/>
+        <scale com="0.2" forcewidth="0.035" contactwidth="0.10" contactheight="0.04"/>
+        <map force="0.005" zfar="45"/>
+    </visual>
+
+    <worldbody>
+        <light directional="true" diffuse=".8 .8 .8" pos="0 0 10" dir="0 0 -10"/>
+        <camera name="track" mode="trackcom" pos="0 -1.3 1.6" xyaxes="1 0 0 0 0.707 0.707"/>
+        <!-- <body name="world_floor" pos="0 0 0" > -->
+            <!-- <geom name='floor' type='plane' conaffinity='1' condim='6' contype='1' rgba="0.8 0.9 0.9 0.1" material="plane" pos='0 0 0' size='0 0 1' friction="1. 0005 0.0001" margin="0.001"/> -->
+            <geom name="hfield1" group='0' type="hfield" hfield="hf1" rgba="0.5 0.9 0.9 1." material="plane" pos='0 0 0' friction="1.1 0.005 0.0001" margin="0.00001"/>
+            <!-- <geom name="hfield1" type="hfield" hfield="hf1" rgba="1. 0.1 0.1 1." material="plane" pos='0 0 0' friction="0.9 0.005 0.0001" margin="0.001"/> -->
+
+            <!-- <geom name="my_box" type="box" size=".9 1.1 .02" material="plane" pos='2.2 0.3 0.85' friction="1.1 0005 0.0001" margin="0.002"/>
+            <geom name="my_box1" type="box" size=".7 .7 .02" material="plane" pos='2.4 0.5 0.9' friction="1.1 0005 0.0001" margin="0.002"/>
+            <geom name="my_box2" type="box" size=".5 .5 .02" material="plane" pos='2.6 0.7 0.95' friction="1.1 0005 0.0001" margin="0.002"/> -->
+            <!-- <geom name="my_box00" type="box" size="2.0 1.1 .02" material="plane" pos='1.5 0.3 0.85' friction="1.1 0005 0.0001" margin="0.0001"/>
+            <geom name="my_box001" type="box" size="1.1 .7 .04" material="plane" pos='1.5 0.5 0.88' friction="1.1 0005 0.0001" margin="0.0001"/>
+            <geom name="my_box002" type="box" size=".5 .5 .02" material="plane" pos='1.5 0.7 0.97' friction="1.1 0005 0.0001" margin="0.0001"/> -->
+            <geom name="my_box0" group='0' type="box" size="1.6 1.1 .02" material="plane" pos='2.3 0.3 0.85' friction="1.1 0.005 0.0001" margin="0.00005"/>
+            <geom name="my_box01" group='0' type="box" size="1.3 1.1 .04" material="plane" pos='2.3 0.5 0.88' friction="1.1 0.005 0.0001" margin="0.00005"/>
+            <geom name="my_box02" group='0' type="box" size=".9 1.1 .04" material="plane" pos='2.3 0.7 0.95' friction="1.1 0.005 0.0001" margin="0.00005"/>
+            <!-- <geom name="my_box1" group='0' type="box" solref="0.001 2" solimp='0.9 0.95 0.001 0.5 2' size="1.7 1.1 .02" material="plane" pos='6.8 -1.3 0.85' friction="1.1 0.02 0.01" margin="0.001"/>
+            <geom name="my_box11" group='0' type="box" solref="0.001 2" solimp='0.9 0.95 0.001 0.5 2' size="1.2 1.1 .04" material="plane" pos='6.4 -1.5 0.89' friction="1.1 0.02 0.01" margin="0.001"/>
+            <geom name="my_box12" group='0' type="box" solref="0.001 2" solimp='0.9 0.95 0.001 0.5 2' size=".7 1.1 .04" material="plane" pos='6.4 -1.7 0.98' friction="1.1 0.02 0.01" margin="0.001"/>
+            <geom name="my_box2" group='0' type="box" solref="0.001 2" solimp='0.9 0.95 0.001 0.5 2' size="1.7 1.1 .02" material="plane" pos='9.8 3.3 0.85' friction="1.1 0.02 0.01" margin="0.001"/>
+            <geom name="my_box21" group='0' type="box" solref="0.001 2" solimp='0.9 0.95 0.001 0.5 2' size="1.2 1.1 .04" material="plane" pos='9.4 3.5 0.89' friction="1.1 0.02 0.01" margin="0.001"/>
+            <geom name="my_box22" group='0' type="box" solref="0.001 2" solimp='0.9 0.95 0.001 0.5 2' size=".7 1.1 .04" material="plane" pos='9.4 3.7 0.98' friction="1.1 0.02 0.01" margin="0.001"/> -->
+
+            <!-- <geom name="my_box0" type="box" size="1.7 1.1 .02" material="plane" pos='2.4 0.3 0.0' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box01" type="box" size="1.2 1.1 .04" material="plane" pos='2.4 0.5 0.04' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box02" type="box" size=".7 1.1 .04" material="plane" pos='2.4 0.7 0.13' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box1" type="box" size="1.7 1.1 .02" material="plane" pos='6.8 -1.3 0.0' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box11" type="box" size="1.2 1.1 .04" material="plane" pos='6.4 -1.5 0.04' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box12" type="box" size=".7 1.1 .04" material="plane" pos='6.4 -1.7 0.13' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box2" type="box" size="1.7 1.1 .02" material="plane" pos='9.8 3.3 0.0' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box21" type="box" size="1.2 1.1 .04" material="plane" pos='9.4 3.5 0.04' friction="1. 0005 0.0001" margin="0.001"/>
+            <geom name="my_box22" type="box" size=".7 1.1 .04" material="plane" pos='9.4 3.7 0.13' friction="1. 0005 0.0001" margin="0.001"/> -->
+        <!-- </body> -->
+        <!-- <body name="trunk" pos="0 0 0.35"> -->
+        <body name="trunk" pos="0 -0.01 1.28189675">
+            <inertial pos="0.0116053 0.00442221 0.000106692" quat="0.0111438 0.707126 -0.00935374 0.706938" mass="5.204" diaginertia="0.0716565 0.0630105 0.0168101"/>
+            <joint type="free" />
+            <geom name="trunk" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="trunk" />
+            <site name="imu" pos="0 0 0"/>
+            <site type="sphere" name="LiDAR" pos="0.1 0. 0." size=".001 .001 .001"/>
+
+            <body name="FR_hip" pos="0.1881 -0.04675 0">
+                <inertial pos="-0.00406411 -0.0193463 4.50733e-06" quat="0.467526 0.531662 -0.466259 0.530431" mass="0.679292" diaginertia="0.000734064 0.000468438 0.000398719"/> />
+                <joint name="FR_hip_joint" damping="1" pos="0 0 0" axis="1 0 0" limited="true" range="-0.863 0.863"/>
+                <geom name="FR_hip" quat="0 1 0 0" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="hip" />
+                <!-- <site type="sphere" name="FR_hip_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                <body name="FR_thigh" pos="0 -0.08 0">
+                    <inertial pos="-0.003468 0.018947 -0.032736" quat="0.999266 0.00067676 -0.0382978 0.000639813" mass="0.898919" diaginertia="0.00478717 0.00460903 0.000709268" />
+                    <joint name="FR_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-0.686 4.501"/>
+                    <geom name="FR_thigh" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="thigh_mirror" />
+                    <!-- <site type="sphere" name="FR_thigh_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                    <body name="FR_calf" pos="0 0 -0.213">
+                        <inertial pos="0.00455603 0.0009473 -0.147239" quat="0.762045 0.00970173 0.0180098 0.647201" mass="0.218015" diaginertia="0.00149767 0.00148468 3.58427e-05" />
+                        <joint name="FR_calf_joint" damping="4" pos="0 0 0" axis="0 1 0" limited="true" range="-2.818 -0.888"/>
+                        <geom name="FR_calf" priority="1"  solimp="0085 1.6 0.00031" solref="0.001 2" type="mesh" group="1" rgba="0 0 0 1" mesh="calf" />
+                        <!-- <site type="sphere" name="FR_calf_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                        <!-- <site name="FR_force_sensor" pos="0 0 -0.213" size="0.05" rgba="1 0 0 1" type="sphere" /> -->
+                        <site name="FR_touch_sensor" pos="0 0 -0.213" size="0.0025" rgba="1 0 0 1" type="sphere" />
+                    </body>
+                </body>
+            </body>
+            <body name="FL_hip" pos="0.1881 0.04675 0">
+                <inertial pos="-0.00406411 0.0193463 4.50733e-06" quat="0.531662 0.467526 -0.530431 0.466259" mass="0.679292" diaginertia="0.000734064 0.000468438 0.000398719"/> />
+                <joint name="FL_hip_joint" damping="1" pos="0 0 0" axis="1 0 0" limited="true" range="-0.863 0.863"/>
+                <geom name="FL_hip" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="hip" />
+                <!-- <site type="sphere" name="FL_hip_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                <body name="FL_thigh" pos="0 0.08 0">
+                    <inertial pos="-0.003468 -0.018947 -0.032736" quat="0.999266 -0.00067676 -0.0382978 -0.000639813" mass="0.898919" diaginertia="0.00478717 0.00460903 0.000709268" />
+                    <joint name="FL_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-0.686 4.501"/>
+                    <geom name="FL_thigh" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="thigh" />
+                    <!-- <site type="sphere" name="FL_thigh_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                    <body name="FL_calf" pos="0 0 -0.213">
+                        <inertial pos="0.00455603 0.0009473 -0.147239" quat="0.762045 0.00970173 0.0180098 0.647201" mass="0.218015" diaginertia="0.00149767 0.00148468 3.58427e-05" />
+                        <joint name="FL_calf_joint" damping="4" pos="0 0 0" axis="0 1 0" limited="true" range="-2.818 -0.888"/>
+                        <geom name="FL_calf" priority="1"    solimp="0085 1.6 0.00031" solref="0.001 2" type="mesh" group="1" rgba="0 0 0 1" mesh="calf" />
+                        <!-- <site type="sphere" name="FL_calf_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                        <!-- <site name="FL_force_sensor" pos="0 0 -0.213" size="0.05" rgba="1 0 0 1" type="sphere" /> -->
+                        <site name="FL_touch_sensor" pos="0 0 -0.213" size="0.0025" rgba="1 0 0 1" type="sphere" />
+                    </body>
+                </body>
+            </body>
+            <body name="RR_hip" pos="-0.1881 -0.04675 0">
+                <inertial pos="0.00406411 -0.0193463 4.50733e-06" quat="0.530431 0.466259 -0.531662 0.467526" mass="0.679292" diaginertia="0.000734064 0.000468438 0.000398719"/> />
+                <joint name="RR_hip_joint" damping="1" pos="0 0 0" axis="1 0 0" limited="true" range="-0.863 0.863"/>
+                <geom name="RR_hip" quat="0 0 0 -1" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="hip" />
+                <!-- <site type="sphere" name="RR_hip_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                <body name="RR_thigh" pos="0 -0.08 0">
+                    <inertial pos="-0.003468 0.018947 -0.032736" quat="0.999266 0.00067676 -0.0382978 0.000639813" mass="0.898919" diaginertia="0.00478717 0.00460903 0.000709268" />
+                    <joint name="RR_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-0.686 4.501"/>
+                    <geom name="RR_thigh" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="thigh_mirror" />
+                    <!-- <site type="sphere" name="RR_thigh_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                    <body name="RR_calf" pos="0 0 -0.213">
+                        <inertial pos="0.00455603 0.0009473 -0.147239" quat="0.762045 0.00970173 0.0180098 0.647201" mass="0.218015" diaginertia="0.00149767 0.00148468 3.58427e-05" />
+                        <joint name="RR_calf_joint" damping="4" pos="0 0 0" axis="0 1 0" limited="true" range="-2.818 -0.888"/>
+                        <geom name="RR_calf" priority="1"    solimp="0085 1.6 0.00031" solref="0.001 2" type="mesh" group="1" rgba="0 0 0 1" mesh="calf" />
+                        <!-- <site type="sphere" name="FR_calf_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                        <!-- <site name="RR_force_sensor" pos="0 0 -0.213" size="0.05" rgba="1 0 0 1" type="sphere" /> -->
+                        <site name="RR_touch_sensor" pos="0 0 -0.213" size="0.0025" rgba="1 0 0 1" type="sphere" />
+                    </body>
+                </body>
+            </body>
+            <body name="RL_hip" pos="-0.1881 0.04675 0">
+                <inertial pos="0.00406411 0.0193463 4.50733e-06" quat="0.466259 0.530431 -0.467526 0.531662" mass="0.679292" diaginertia="0.000734064 0.000468438 0.000398719"/> />
+                <joint name="RL_hip_joint" damping="1" pos="0 0 0" axis="1 0 0" limited="true" range="-0.863 0.863"/>
+                <geom name="RL_hip" quat="0 0 1 0" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="hip" />
+                <!-- <site type="sphere" name="RL_hip_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                <body name="RL_thigh" pos="0 0.08 0">
+                    <inertial pos="-0.003468 -0.018947 -0.032736" quat="0.999266 -0.00067676 -0.0382978 -0.000639813" mass="0.898919" diaginertia="0.00478717 0.00460903 0.000709268" />
+                    <joint name="RL_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-0.686 4.501"/>
+                    <geom name="RL_thigh" type="mesh" group="1" rgba="0.913725 0.913725 0.847059 1" mesh="thigh" />
+                    <!-- <site type="sphere" name="RL_thigh_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                    <body name="RL_calf" pos="0 0 -0.213">
+                        <inertial pos="0.00455603 0.0009473 -0.147239" quat="0.762045 0.00970173 0.0180098 0.647201" mass="0.218015" diaginertia="0.00149767 0.00148468 3.58427e-05" />
+                        <joint name="RL_calf_joint" damping="4" pos="0 0 0" axis="0 1 0" limited="true" range="-2.818 -0.888"/>
+                        <geom name="RL_calf" priority="1"    solimp="0085 1.6 0.00031" solref="0.001 2" type="mesh" group="1" rgba="0 0 0 1" mesh="calf" />
+                        <!-- <site type="sphere" name="FR_calf_joint1" pos="0. 0. 0." size=".001 .001 .001"/> -->
+
+                        <!-- <site name="RL_force_sensor" pos="0 0 -0.213" size="0.05" rgba="1 0 0 1" type="sphere" /> -->
+                        <site name="RL_touch_sensor" pos="0 0 -0.213" size="0.0025" rgba="1 0 0 1" type="sphere" />
+                    </body>
+                </body>
+            </body>
+        </body>
+
+    </worldbody>
+    
+    <actuator>       
+        <motor name="FR_hip"       gear="1" joint="FR_hip_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="FR_thigh"     gear="1" joint="FR_thigh_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="FR_calf"      gear="1" joint="FR_calf_joint" ctrlrange="-35.55 35.55" ctrllimited="true"/>
+        <motor name="FL_hip"       gear="1" joint="FL_hip_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="FL_thigh"     gear="1" joint="FL_thigh_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="FL_calf"      gear="1" joint="FL_calf_joint" ctrlrange="-35.55 35.55" ctrllimited="true"/>
+        <motor name="RR_hip"       gear="1" joint="RR_hip_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="RR_thigh"     gear="1" joint="RR_thigh_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="RR_calf"      gear="1" joint="RR_calf_joint" ctrlrange="-35.55 35.55" ctrllimited="true"/>
+        <motor name="RL_hip"       gear="1" joint="RL_hip_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="RL_thigh"     gear="1" joint="RL_thigh_joint" ctrlrange="-23.7 23.7" ctrllimited="true"/>
+        <motor name="RL_calf"      gear="1" joint="RL_calf_joint" ctrlrange="-35.55 35.55" ctrllimited="true"/>
+    </actuator>
+
+    <!-- <actuator>       
+            <position name="FR_hip_pos"       gear="1" joint="FR_hip_joint" kp='5'/>
+            <position name="FR_thigh_pos"     gear="1" joint="FR_thigh_joint" kp='5'/>
+            <position name="FR_calf_pos"      gear="1" joint="FR_calf_joint" kp='5'/>
+            <position name="FL_hip_pos"       gear="1" joint="FL_hip_joint" kp='5'/>
+            <position name="FL_thigh_pos"     gear="1" joint="FL_thigh_joint" kp='5'/>
+            <position name="FL_calf_pos"      gear="1" joint="FL_calf_joint" kp='5'/>
+            <position name="RR_hip_pos"       gear="1" joint="RR_hip_joint" kp='5'/>
+            <position name="RR_thigh_pos"     gear="1" joint="RR_thigh_joint" kp='5'/>
+            <position name="RR_calf_pos"      gear="1" joint="RR_calf_joint" kp='5'/>
+            <position name="RL_hip_pos"       gear="1" joint="RL_hip_joint" kp='5'/>
+            <position name="RL_thigh_pos"     gear="1" joint="RL_thigh_joint" kp='5'/>
+            <position name="RL_calf_pos"      gear="1" joint="RL_calf_joint" kp='5'/>
+    </actuator> -->
+
+    <sensor>
+        <jointpos name="FR_hip_pos"     joint="FR_hip_joint"/>
+        <jointpos name="FR_thigh_pos"   joint="FR_thigh_joint"/>
+        <jointpos name="FR_calf_pos"    joint="FR_calf_joint"/>
+        <jointpos name="FL_hip_pos"     joint="FL_hip_joint"/>
+        <jointpos name="FL_thigh_pos"   joint="FL_thigh_joint"/>
+        <jointpos name="FL_calf_pos"    joint="FL_calf_joint"/>
+        <jointpos name="RR_hip_pos"     joint="RR_hip_joint"/>
+        <jointpos name="RR_thigh_pos"   joint="RR_thigh_joint"/>
+        <jointpos name="RR_calf_pos"    joint="RR_calf_joint" />
+        <jointpos name="RL_hip_pos"     joint="RL_hip_joint"/>
+        <jointpos name="RL_thigh_pos"   joint="RL_thigh_joint"/>
+        <jointpos name="RL_calf_pos"    joint="RL_calf_joint"/>
+
+        <jointvel name="FR_hip_vel"     joint="FR_hip_joint"/>
+        <jointvel name="FR_thigh_vel"   joint="FR_thigh_joint"/>
+        <jointvel name="FR_calf_vel"    joint="FR_calf_joint"/>
+        <jointvel name="FL_hip_vel"     joint="FL_hip_joint"/>
+        <jointvel name="FL_thigh_vel"   joint="FL_thigh_joint"/>
+        <jointvel name="FL_calf_vel"    joint="FL_calf_joint"/>
+        <jointvel name="RR_hip_vel"     joint="RR_hip_joint"/>
+        <jointvel name="RR_thigh_vel"   joint="RR_thigh_joint"/>
+        <jointvel name="RR_calf_vel"    joint="RR_calf_joint" />
+        <jointvel name="RL_hip_vel"     joint="RL_hip_joint"/>
+        <jointvel name="RL_thigh_vel"   joint="RL_thigh_joint"/>
+        <jointvel name="RL_calf_vel"    joint="RL_calf_joint"/>
+
+        <accelerometer name="Body_Acc" site="imu"/>
+
+        <gyro name="Body_Gyro" site="imu"/>
+
+        <framepos name="Body_Pos" objtype="site" objname="imu"/>
+
+        <framequat name="Body_Quat" objtype="site" objname="imu"/>
+
+        <touch name="FR_touch" site="FR_touch_sensor" />
+        <touch name="FL_touch" site="FL_touch_sensor" />
+        <touch name="RR_touch" site="RR_touch_sensor" />
+        <touch name="RL_touch" site="RL_touch_sensor" />
+        <!-- <force name="FR_force" site="FR_force_sensor" />
+        <force name="FL_force" site="FL_force_sensor" />
+        <force name="RR_force" site="RR_force_sensor" />
+        <force name="RL_force" site="RL_force_sensor" /> -->
+    </sensor>
+
+    <contact>
+        <exclude body1="trunk" body2="FR_hip"/>
+        <exclude body1="trunk" body2="FR_thigh"/>
+        <exclude body1="trunk" body2="FR_calf"/>
+        <exclude body1="trunk" body2="FL_hip"/>
+        <exclude body1="trunk" body2="FL_thigh"/>
+        <exclude body1="trunk" body2="FL_calf"/>
+        <exclude body1="trunk" body2="RR_hip"/>
+        <exclude body1="trunk" body2="RR_thigh"/>
+        <exclude body1="trunk" body2="RR_calf"/>
+        <exclude body1="trunk" body2="RL_hip"/>
+        <exclude body1="trunk" body2="RL_thigh"/>
+        <exclude body1="trunk" body2="RL_calf"/>
+        <exclude body1="FR_hip" body2="FR_thigh"/>
+        <exclude body1="FR_hip" body2="FR_calf"/>
+        <exclude body1="FR_hip" body2="FL_hip"/>
+        <exclude body1="FR_hip" body2="FL_thigh"/>
+        <exclude body1="FR_hip" body2="FL_calf"/>
+        <exclude body1="FR_hip" body2="RR_hip"/>
+        <exclude body1="FR_hip" body2="RR_thigh"/>
+        <exclude body1="FR_hip" body2="RR_calf"/>
+        <exclude body1="FR_hip" body2="RL_hip"/>
+        <exclude body1="FR_hip" body2="RL_thigh"/>
+        <exclude body1="FR_hip" body2="RL_calf"/>
+        <exclude body1="FR_thigh" body2="FR_calf"/>
+        <exclude body1="FR_thigh" body2="FL_hip"/>
+        <exclude body1="FR_thigh" body2="FL_thigh"/>
+        <exclude body1="FR_thigh" body2="FL_calf"/>
+        <exclude body1="FR_thigh" body2="RR_hip"/>
+        <exclude body1="FR_thigh" body2="RR_thigh"/>
+        <exclude body1="FR_thigh" body2="RR_calf"/>
+        <exclude body1="FR_thigh" body2="RL_hip"/>
+        <exclude body1="FR_thigh" body2="RL_thigh"/>
+        <exclude body1="FR_thigh" body2="RL_calf"/>
+        <exclude body1="FR_calf" body2="FL_hip"/>
+        <exclude body1="FR_calf" body2="FL_thigh"/>
+        <exclude body1="FR_calf" body2="FL_calf"/>
+        <exclude body1="FR_calf" body2="RR_hip"/>
+        <exclude body1="FR_calf" body2="RR_thigh"/>
+        <exclude body1="FR_calf" body2="RR_calf"/>
+        <exclude body1="FR_calf" body2="RL_hip"/>
+        <exclude body1="FR_calf" body2="RL_thigh"/>
+        <exclude body1="FR_calf" body2="RL_calf"/>
+        <exclude body1="FL_hip" body2="FL_thigh"/>
+        <exclude body1="FL_hip" body2="FL_calf"/>
+        <exclude body1="FL_hip" body2="RR_hip"/>
+        <exclude body1="FL_hip" body2="RR_thigh"/>
+        <exclude body1="FL_hip" body2="RR_calf"/>
+        <exclude body1="FL_hip" body2="RL_hip"/>
+        <exclude body1="FL_hip" body2="RL_thigh"/>
+        <exclude body1="FL_hip" body2="RL_calf"/>
+        <exclude body1="FL_thigh" body2="FL_calf"/>
+        <exclude body1="FL_thigh" body2="RR_hip"/>
+        <exclude body1="FL_thigh" body2="RR_thigh"/>
+        <exclude body1="FL_thigh" body2="RR_calf"/>
+        <exclude body1="FL_thigh" body2="RL_hip"/>
+        <exclude body1="FL_thigh" body2="RL_thigh"/>
+        <exclude body1="FL_thigh" body2="RL_calf"/>
+        <exclude body1="FL_calf" body2="RR_hip"/>
+        <exclude body1="FL_calf" body2="RR_thigh"/>
+        <exclude body1="FL_calf" body2="RR_calf"/>
+        <exclude body1="FL_calf" body2="RL_hip"/>
+        <exclude body1="FL_calf" body2="RL_thigh"/>
+        <exclude body1="FL_calf" body2="RL_calf"/>
+        <exclude body1="RR_hip" body2="RR_thigh"/>
+        <exclude body1="RR_hip" body2="RR_calf"/>
+        <exclude body1="RR_hip" body2="RL_hip"/>
+        <exclude body1="RR_hip" body2="RL_thigh"/>
+        <exclude body1="RR_hip" body2="RL_calf"/>
+        <exclude body1="RR_thigh" body2="RR_calf"/>
+        <exclude body1="RR_thigh" body2="RL_hip"/>
+        <exclude body1="RR_thigh" body2="RL_thigh"/>
+        <exclude body1="RR_thigh" body2="RL_calf"/>
+        <exclude body1="RR_calf" body2="RL_hip"/>
+        <exclude body1="RR_calf" body2="RL_thigh"/>
+        <exclude body1="RR_calf" body2="RL_calf"/>
+        <exclude body1="RL_hip" body2="RL_thigh"/>
+        <exclude body1="RL_hip" body2="RL_calf"/>
+        <exclude body1="RL_thigh" body2="RL_calf"/>
+    </contact>
+
+</mujoco>

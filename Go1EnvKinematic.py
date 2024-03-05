@@ -899,7 +899,7 @@ class Go1Env():
         return eul_angles
 
     def get_com_z_dist(self, data, point_from):
-        geom_id_arr = np.zeros((1, 1)).astype(int)
+        geom_id_arr = np.zeros((1, 1)).astype(np.int32)
         trunk_num = self.get_body_id(body_name='trunk')
         # z_dist = mj.mj_ray(self.robot, data, point_from, np.asarray([0, 0, -1]), None, 1, -1, geom_id_arr)
         z_dist = mj.mj_ray(self.robot, data, point_from.reshape(3, 1), np.asarray([0, 0, -1]).reshape(3, 1), self.geom_group_set.reshape(-1, 1), 1, 1, geom_id_arr)

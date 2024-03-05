@@ -1622,7 +1622,7 @@ if __name__ == "__main__":
         first_env_block_render = False
         plot_tracking = True
         plot_tracking = False
-        walker_envs_values = create_walkers(n=8, render_first=first_env_block_render, plot_tracking=plot_tracking, xml_file=xml_file, 
+        walker_envs_values = create_walkers(n=24, render_first=first_env_block_render, plot_tracking=plot_tracking, xml_file=xml_file, 
                                             leg_list=leg_list, trajectories=trajectories, leg_id_row=leg_id_row, legs_pair=legs_pair, 
                                             body_length_reducer=body_length_reducer, args=args
                                             )
@@ -1659,8 +1659,8 @@ if __name__ == "__main__":
 
     # env setup
     # args.num_envs = len(walker_envs_values)
-    args.num_envs = 60
-    args.num_steps = 131072 // args.num_envs
+    args.num_envs = 24
+    args.num_steps = 2048*args.num_envs // args.num_envs
     # args.num_steps = 500 // args.num_envs
     # args.num_steps = 4096 // args.num_envs
     args.batch_size = int(args.num_envs * args.num_steps)

@@ -22,7 +22,7 @@
         <texture type="skybox" builtin="gradient" rgb1="1.0 1.0 1.0" rgb2="1.0 1.0 1.0" width="512" height="512"/>
         <texture name="plane" builtin="checker" type="2d" rgb1="1 1 1" rgb2="1 1 1" width="512" height="512" mark="cross" markrgb="0 0 0"/>
         <material name="plane" reflectance="0.0" texture="plane" texrepeat="3 3" texuniform="true"/>
-        <hfield name="hf1" size="40 40 2.2 0.1" file="C:\\Users\\Omri\\Desktop\\MSc\\Thesis\\Code\\Height_Maps\\heightmap1685995019.9920268_resized.png"/>
+        <hfield name="hf1" size="40 40 2.2 0.1" file="/home/omri/Thesis/heightmap.png"/>
     </asset>
 
     <visual>

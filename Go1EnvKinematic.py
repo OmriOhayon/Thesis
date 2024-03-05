@@ -793,6 +793,7 @@ class Go1Env():
         self.legs_ids = ['FR', 'RR', 'FL', 'RL']
         self.force_sensors_id = [mj.mj_name2id(self.robot, mj.mjtObj.mjOBJ_SENSOR, id+'_force') for id in self.legs_ids]
         self.geom_group_set = np.zeros(6, ) + [1, 0, 0, 0, 0, 0]
+        self.geom_group_set = self.geom_group_set.astype(np.uint8)
         self.go1_contacts = set([])
 
         self.L1 = 0.08

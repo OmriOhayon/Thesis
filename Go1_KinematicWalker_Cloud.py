@@ -1545,7 +1545,7 @@ if __name__ == "__main__":
     sb.set_style("darkgrid", {"grid.color": ".6", "grid.linestyle": ":"})
 
     now = datetime.now().strftime("%d_%m_%y_%H_%M_%S")
-    xml_file = '..go1\\xml\\go1.xml'
+    xml_file = '..go1/xml/go1.xml'
     state_file = 'state_file.txt'
     env1 = Go1Env(xml=xml_file, env_num=0)
     my_ikine = IKine(env=env1)

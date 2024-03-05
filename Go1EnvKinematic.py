@@ -691,7 +691,7 @@ class IKine:
 
             tot_traj[idx] = angles
 
-        with ThreadPoolExecutor(max_workers=4) as executor:
+        with ThreadPoolExecutor(max_workers=8) as executor:
             for _ in executor.map(process_outer_loop, range(len(com_des_arr)), com_des_arr, trunk_angles):
             # for _ in executor.map(process_outer_loop, range(len(com_des_arr)), com_des_arr.reshape((1, 3)), trunk_angles):
                 pass

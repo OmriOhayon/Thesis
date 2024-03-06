@@ -1952,7 +1952,7 @@ if __name__ == "__main__":
                                 loss=loss,
                                 global_step=global_step, 
                                 run_name=run_name,
-                                filename='.\\ppo_trainings\\_'+run_name+'_checkpoint{}.pth'.format(training_epochs+start_epoch))
+                                filename='./ppo_trainings/_'+run_name+'_checkpoint{}.pth'.format(training_epochs+start_epoch))
         
         y_pred, y_true = b_values.cpu().numpy(), b_returns.cpu().numpy()
         var_y = np.var(y_true)

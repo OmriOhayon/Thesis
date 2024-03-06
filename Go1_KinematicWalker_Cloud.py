@@ -1660,7 +1660,7 @@ if __name__ == "__main__":
     # env setup
     # args.num_envs = len(walker_envs_values)
     args.num_envs = 90
-    args.num_steps = 2048*args.num_envs // args.num_envs
+    args.num_steps = 512*args.num_envs // args.num_envs
     # args.num_steps = 500 // args.num_envs
     # args.num_steps = 4096 // args.num_envs
     args.batch_size = int(args.num_envs * args.num_steps)

@@ -413,7 +413,8 @@ class Walker(Env):
                                                 'l': self.episode_steps, 
                                                 'env_num': self.env.env_num, 
                                                 'Checkpoint': self.checkpoint_ep,
-                                                'got_to_goal': self.got_to_goal}}}
+                                                'got_to_goal': self.got_to_goal,
+                                                'Traj. Num': self.trajectory_index}}}
             self.reset()
 
         obs = np.around(obs, 4)
@@ -1823,33 +1824,24 @@ if __name__ == "__main__":
                         if item['episode']['l'] > 1:
                             time.sleep(0.05)
                             ep_num += 1
-                            print(f"global_step={global_step+idx}, env_num={item['episode']['env_num']}, episodic_return={item['episode']['r']}, episodic_length={item['episode']['l']}, Checkpoint={item['episode']['Checkpoint']}")
+                            trajectory_num = item['episode']['Traj. Num']
+                            print(f"global_step={global_step+idx}, env_num={item['episode']['env_num']}, episodic_return={item['episode']['r']}, traj_num:={trajectory_num}, episodic_length={item['episode']['l']}, Checkpoint={item['episode']['Checkpoint']}")
                             if item['episode']['Checkpoint']:
                                 writer.add_scalar("charts/Trajectory Completed - Checkpoint", item["episode"]["got_to_goal"], global_step+idx)
-                                log_step_check = 1
                                 writer.add_scalar("charts/Episodic Return Checkpoint", item["episode"]["r"], global_step+idx)
-                                log_step_check = 2
                                 writer.add_scalar("charts/Episode Length Checkpoint", item["episode"]["l"], global_step+idx)
-                                log_step_check = 3
                             else:
                                 writer.add_scalar("charts/Trajectory Completed - From Init. State", item["episode"]["got_to_goal"], global_step+idx)
-                                log_step_check = 4
                                 writer.add_scalar("charts/Episodic Return From Init. State", item["episode"]["r"], global_step+idx)
-                                log_step_check = 5
                                 writer.add_scalar("charts/Episode Length From Init. State", item["episode"]["l"], global_step+idx)
-                            log_step_check = 6
+                              
                             writer.add_scalar("charts/Traj. Completed - Binary", item["episode"]["got_to_goal"], global_step+idx)
-                            log_step_check = 7
                             writer.add_scalar("charts/Episodic Return", item["episode"]["r"], global_step+idx)
-                            log_step_check = 8
                             writer.add_scalar("charts/Episodic Length", item["episode"]["l"], global_step+idx)
-                            log_step_check = 9
                             writer.add_scalar("charts/Traj. Completed - Binary - By Ep.", item["episode"]["got_to_goal"], ep_num)
-                            log_step_check = 10
                             writer.add_scalar("charts/Episodic Return - By Ep.", item["episode"]["r"], ep_num)
-                            log_step_check = 11
                             writer.add_scalar("charts/Episodic Length - By Ep.", item["episode"]["l"], ep_num)
-                            log_step_check = 12
+                            writer.add_scalar("charts/Trajectory Num. - By Ep.", trajectory_num, ep_num)
                     except Exception as e:
                         print(f'Logging error at step {global_step+idx}, check the logger. Exception: {e}, at log num: {log_step_check}')
                     writer.flush()

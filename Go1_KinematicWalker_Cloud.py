@@ -1376,14 +1376,14 @@ def parse_args(parser):
     parser.add_argument("--gym-id", type=str, default="MyGo1Env",
     # parser.add_argument("--gym-id", type=str, default="HalfCheetahBulletEnv-v0",
         help="the id of the gym environment")
-    parser.add_argument("--learning-rate", type=float, default=2e-5,
+    parser.add_argument("--learning-rate", type=float, default=2e-4,
     # parser.add_argument("--learning-rate", type=float, default=2e-5,
         help="the learning rate of the optimizer")
     parser.add_argument("--seed", type=int, default=1,
         help="seed of the experiment")
     parser.add_argument("--save-interval", type=int, default=7,
         help="save model intervals")
-    parser.add_argument("--num-trajectories", type=int, default=5,
+    parser.add_argument("--num-trajectories", type=int, default=1,
         help="number of trajectories agent trained on")
     parser.add_argument("--num-points-paw", type=int, default=170,
         help="number of points in each simulation step of paw")
@@ -1433,7 +1433,7 @@ def parse_args(parser):
         help="the surrogate clipping coefficient")
     parser.add_argument("--clip-vloss", type=lambda x: bool(strtobool(x)), default=True, nargs="?", const=True,
         help="Toggles whether or not to use a clipped loss for the value function, as per the paper.")
-    parser.add_argument("--ent-coef", type=float, default=0.001,
+    parser.add_argument("--ent-coef", type=float, default=0.0,
         help="coefficient of the entropy")
     parser.add_argument("--vf-coef", type=float, default=0.5,
         help="coefficient of the value function")

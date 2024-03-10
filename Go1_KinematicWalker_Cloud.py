@@ -1658,10 +1658,11 @@ if __name__ == "__main__":
 
     # check_env(walker_envs_values[0])
 
-    # env setup
-    # args.num_envs = len(walker_envs_values)
+    # ### Env Setup
     args.num_envs = 90
-    args.num_steps = 1024*args.num_envs // args.num_envs
+    args.num_steps = 8192 // args.num_envs
+  
+    # args.num_steps = 1024*args.num_envs // args.num_envs
     # args.num_steps = 500 // args.num_envs
     # args.num_steps = 4096 // args.num_envs
     args.batch_size = int(args.num_envs * args.num_steps)
@@ -1823,7 +1824,7 @@ if __name__ == "__main__":
                         continue
                     try:
                         if item['episode']['l'] > 1:
-                            time.sleep(0.05)
+                            # time.sleep(0.05)
                             ep_num += 1
                             trajectory_num = item['episode']['Traj. Num']
                             print(f"global_step={global_step+update_step}, env_num={item['episode']['env_num']}, episodic_return={item['episode']['r']}, traj_num:={trajectory_num}, episodic_length={item['episode']['l']}, Checkpoint={item['episode']['Checkpoint']}")

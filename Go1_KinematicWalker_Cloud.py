@@ -1777,7 +1777,8 @@ if __name__ == "__main__":
     num_updates = args.total_timesteps // args.batch_size
     ep_reward = 0.
     training_epochs = 0
-    
+
+    update_step = 0
     # agent.save_checkpoint(optimizer=optimizer, 
     #                           epoch=training_epochs, 
     #                           loss=0, 
@@ -1825,25 +1826,26 @@ if __name__ == "__main__":
                             time.sleep(0.05)
                             ep_num += 1
                             trajectory_num = item['episode']['Traj. Num']
-                            print(f"global_step={global_step+idx}, env_num={item['episode']['env_num']}, episodic_return={item['episode']['r']}, traj_num:={trajectory_num}, episodic_length={item['episode']['l']}, Checkpoint={item['episode']['Checkpoint']}")
+                            print(f"global_step={global_step+update_step}, env_num={item['episode']['env_num']}, episodic_return={item['episode']['r']}, traj_num:={trajectory_num}, episodic_length={item['episode']['l']}, Checkpoint={item['episode']['Checkpoint']}")
                             if item['episode']['Checkpoint']:
-                                writer.add_scalar("charts/Trajectory Completed - Checkpoint", item["episode"]["got_to_goal"], global_step+idx)
-                                writer.add_scalar("charts/Episodic Return Checkpoint", item["episode"]["r"], global_step+idx)
-                                writer.add_scalar("charts/Episode Length Checkpoint", item["episode"]["l"], global_step+idx)
+                                writer.add_scalar("charts/Trajectory Completed - Checkpoint", item["episode"]["got_to_goal"], global_step+update_step)
+                                writer.add_scalar("charts/Episodic Return Checkpoint", item["episode"]["r"], global_step+update_step)
+                                writer.add_scalar("charts/Episode Length Checkpoint", item["episode"]["l"], global_step+update_step)
                             else:
-                                writer.add_scalar("charts/Trajectory Completed - From Init. State", item["episode"]["got_to_goal"], global_step+idx)
-                                writer.add_scalar("charts/Episodic Return From Init. State", item["episode"]["r"], global_step+idx)
-                                writer.add_scalar("charts/Episode Length From Init. State", item["episode"]["l"], global_step+idx)
+                                writer.add_scalar("charts/Trajectory Completed - From Init. State", item["episode"]["got_to_goal"], global_step+update_step)
+                                writer.add_scalar("charts/Episodic Return From Init. State", item["episode"]["r"], global_step+update_step)
+                                writer.add_scalar("charts/Episode Length From Init. State", item["episode"]["l"], global_step+update_step)
                               
-                            writer.add_scalar("charts/Traj. Completed - Binary", item["episode"]["got_to_goal"], global_step+idx)
-                            writer.add_scalar("charts/Episodic Return", item["episode"]["r"], global_step+idx)
-                            writer.add_scalar("charts/Episodic Length", item["episode"]["l"], global_step+idx)
+                            writer.add_scalar("charts/Traj. Completed - Binary", item["episode"]["got_to_goal"], global_step+update_step)
+                            writer.add_scalar("charts/Episodic Return", item["episode"]["r"], global_step+update_step)
+                            writer.add_scalar("charts/Episodic Length", item["episode"]["l"], global_step+update_step)
                             writer.add_scalar("charts/Traj. Completed - Binary - By Ep.", item["episode"]["got_to_goal"], ep_num)
                             writer.add_scalar("charts/Episodic Return - By Ep.", item["episode"]["r"], ep_num)
                             writer.add_scalar("charts/Episodic Length - By Ep.", item["episode"]["l"], ep_num)
                             writer.add_scalar("charts/Trajectory Num. - By Ep.", trajectory_num, ep_num)
+                            update_step += 1
                     except Exception as e:
-                        print(f'Logging error at step {global_step+idx}, check the logger. Exception: {e}, at log num: {log_step_check}')
+                        print(f'Logging error at step {global_step+update_step}, check the logger. Exception: {e}, at log num: {log_step_check}')
                     writer.flush()
         
         # checkpoint value if not done

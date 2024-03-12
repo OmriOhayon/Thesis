@@ -1383,7 +1383,7 @@ def parse_args(parser):
         help="seed of the experiment")
     parser.add_argument("--save-interval", type=int, default=7,
         help="save model intervals")
-    parser.add_argument("--num-trajectories", type=int, default=1,
+    parser.add_argument("--num-trajectories", type=int, default=5,
         help="number of trajectories agent trained on")
     parser.add_argument("--num-points-paw", type=int, default=170,
         help="number of points in each simulation step of paw")
